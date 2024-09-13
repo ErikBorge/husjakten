@@ -24,4 +24,4 @@ jobs:
 
     - name: Run Python script
       run: |
-        python fetchPrices.py
+        python script/fetchPrices.py
