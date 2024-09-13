@@ -1,9 +1,9 @@
 name: Run Python Script Every Minute
 
 on:
+  workflow_dispatch:  # Allows manual run
   schedule:
-    # Runs every minute for testing purposes
-    - cron: '*/1 * * * *'  # This cron schedule runs every minute
+    - cron: '*/1 * * * *'  # Runs every minute
 
 jobs:
   run-script:
@@ -16,7 +16,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.x'  # Specify the Python version you need
+        python-version: '3.x'
 
     - name: Install dependencies
       run: |
