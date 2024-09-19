@@ -5,6 +5,12 @@ const uri = process.env.MONGODB_URI as string;
 const client = new MongoClient(uri);
 
 export async function GET() {
+  console.log("MONGODB_URI:", process.env.MONGODB_URI);
+  console.log("MONGODB_DATABASE:", process.env.MONGODB_DATABASE);
+  console.log(
+    "MONGODB_COLLECTION_ALL_HOUSES:",
+    process.env.MONGODB_COLLECTION_ALL_HOUSES
+  );
   try {
     await client.connect();
     const database = client.db(process.env.MONGODB_DATABASE); // Replace with your database name
