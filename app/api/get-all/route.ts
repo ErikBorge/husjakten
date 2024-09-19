@@ -25,6 +25,8 @@ export async function GET() {
     );
     console.log("finding data");
     const data = await collection.find({}).toArray();
+    console.log("data found! returning now");
+
     return NextResponse.json(data);
   } catch (error: unknown) {
     if (error instanceof Error) {
