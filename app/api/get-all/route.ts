@@ -1,24 +1,19 @@
-import { MongoClient } from "mongodb";
+// import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server";
+import client from "@/lib/mongodb";
 
-const uri = process.env.MONGODB_URI as string;
-const client = new MongoClient(uri);
+// const uri = process.env.MONGODB_URI as string;
+// const client = new MongoClient(uri);
 
 export async function GET() {
-  console.log("MONGODB_URI:", process.env.MONGODB_URI);
-  console.log("MONGODB_DATABASE:", process.env.MONGODB_DATABASE);
-  console.log(
-    "MONGODB_COLLECTION_ALL_HOUSES:",
-    process.env.MONGODB_COLLECTION_ALL_HOUSES
-  );
   try {
     console.log("running client.connect()");
 
-    await client.connect();
+    const mongoClient = await client.connect();
     console.log("connected to client");
     console.log("choosing database");
 
-    const database = client.db(process.env.MONGODB_DATABASE); // Replace with your database name
+    const database = mongoClient.db(process.env.MONGODB_DATABASE); // Replace with your database name
     console.log("choosing collection");
     const collection = database.collection(
       process.env.MONGODB_COLLECTION_ALL_HOUSES as string
