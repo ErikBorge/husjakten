@@ -12,11 +12,18 @@ export async function GET() {
     process.env.MONGODB_COLLECTION_ALL_HOUSES
   );
   try {
+    console.log("running client.connect()");
+
     await client.connect();
+    console.log("connected to client");
+    console.log("choosing database");
+
     const database = client.db(process.env.MONGODB_DATABASE); // Replace with your database name
+    console.log("choosing collection");
     const collection = database.collection(
       process.env.MONGODB_COLLECTION_ALL_HOUSES as string
     );
+    console.log("finding data");
     const data = await collection.find({}).toArray();
     return NextResponse.json(data);
   } catch (error: unknown) {
