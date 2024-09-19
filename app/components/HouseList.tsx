@@ -4,7 +4,11 @@ import House from "./House";
 const HouseList = async () => {
   // const houses = data; // dummy data
   const response = await fetch(
-    `${process.env.VERCEL_URL || "http://localhost:3001"}/api/get-all`
+    `${
+      process.env.VERCEL_URL
+        ? "https://" + process.env.VERCEL_URL
+        : "http://localhost:3001"
+    }/api/get-all`
   );
   if (!response.ok) {
     throw new Error("Couldn't fetch houses");
