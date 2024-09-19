@@ -1,5 +1,3 @@
-import Image from "next/image";
-import styles from "./page.module.css";
 import HouseList from "./components/HouseList";
 
 export default function Home() {
