@@ -10,6 +10,9 @@ const HouseList = async () => {
         : "http://localhost:3001"
     }/api/get-all`
   );
+  console.log("got response. it is");
+  console.log(response);
+
   if (!response.ok) {
     const errorText = await response.text();
     console.error(
