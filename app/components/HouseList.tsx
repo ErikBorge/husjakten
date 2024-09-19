@@ -11,6 +11,13 @@ const HouseList = async () => {
     }/api/get-all`
   );
   if (!response.ok) {
+    const errorText = await response.text();
+    console.error(
+      "Failed to fetch houses. Status:",
+      response.status,
+      "Error:",
+      errorText
+    );
     throw new Error("Couldn't fetch houses");
   }
   const houses: HouseType[] = await response.json();
