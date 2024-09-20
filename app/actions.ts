@@ -1,3 +1,5 @@
+"use server";
+
 // import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server";
 import client from "@/lib/mongodb";
