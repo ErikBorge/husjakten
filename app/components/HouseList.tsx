@@ -1,24 +1,20 @@
 import { HouseType } from "@/types/house";
 import House from "./House";
+import { getAllHouses } from "../actions";
 
 const HouseList = async () => {
   // const houses = data; // dummy data
-  console.log(
-    "caling api route",
-    `${
-      process.env.VERCEL_URL
-        ? "https://" + process.env.VERCEL_URL
-        : "http://localhost:3001"
-    }/api/get-all`
-  );
 
-  const response = await fetch(
-    `${
-      process.env.VERCEL_URL
-        ? "https://" + process.env.VERCEL_URL
-        : "http://localhost:3001"
-    }/api/get-all`
-  );
+  // const response = await fetch(
+  //   `${
+  //     process.env.VERCEL_URL
+  //       ? "https://" + process.env.VERCEL_URL
+  //       : "http://localhost:3001"
+  //   }/api/get-all`
+  // );
+  console.log("running getAllHouses");
+
+  const response = await getAllHouses();
   console.log("got response. it is");
   console.log(response);
 
