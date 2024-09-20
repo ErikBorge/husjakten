@@ -1,12 +1,12 @@
 // import { MongoClient } from "mongodb";
-// import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 // import client from "@/lib/mongodb";
 
 // // const uri = process.env.MONGODB_URI as string;
 // // const client = new MongoClient(uri);
 
 export async function GET() {
-  return "herllo";
+  return NextResponse.json({ message: "hello" });
 }
 // export async function GET() {
 //   try {
