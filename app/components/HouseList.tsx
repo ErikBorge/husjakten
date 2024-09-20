@@ -3,6 +3,15 @@ import House from "./House";
 
 const HouseList = async () => {
   // const houses = data; // dummy data
+  console.log(
+    "caling api route",
+    `${
+      process.env.VERCEL_URL
+        ? "https://" + process.env.VERCEL_URL
+        : "http://localhost:3001"
+    }/api/get-all`
+  );
+
   const response = await fetch(
     `${
       process.env.VERCEL_URL
