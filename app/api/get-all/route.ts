@@ -5,6 +5,9 @@
 // // const uri = process.env.MONGODB_URI as string;
 // // const client = new MongoClient(uri);
 
+export async function GET() {
+  return "herllo";
+}
 // export async function GET() {
 //   try {
 //     console.log("running client.connect()");
