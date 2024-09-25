@@ -32,7 +32,7 @@ const House = ({
           <div>
             <p className="text-sm font-light text-gray-600 mb-1">
               {house?.status !== "active" && (
-                <div
+                <span
                   className={`${
                     house.status === "sold"
                       ? "bg-yellow-100"
@@ -42,7 +42,7 @@ const House = ({
                   } py-1 px-2 border-0 rounded-sm text-s inline-flex text-gray-700 mr-2`}
                 >
                   {statusMap[house?.status]}
-                </div>
+                </span>
               )}
               {house.address}
             </p>

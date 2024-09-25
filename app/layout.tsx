@@ -24,8 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${FinnTypeLight.variable} ${FinnTypeMedium.variable}`}>
-        {children}
+      <body
+        className={`${FinnTypeLight.variable} ${FinnTypeMedium.variable} bg-gray-100 min-h-screen`}
+      >
+        <main className="max-w-[1000px] mx-auto p-4">{children}</main>
       </body>
     </html>
   );

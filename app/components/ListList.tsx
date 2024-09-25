@@ -2,6 +2,7 @@ import { CollectionInfo } from "mongodb";
 import { getLists } from "../actions";
 import { decodeCollectionName } from "../utils/convertCollectionName";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const ListList = async () => {
   const response = await getLists();
@@ -17,9 +18,11 @@ const ListList = async () => {
     <div>
       <h2>Lister</h2>
       {lists.map(({ name }, i) => (
-        <Link href={`/${name}`} key={"list" + i}>
-          {decodeCollectionName(name)}
-        </Link>
+        <div key={"list" + i}>
+          <Button asChild variant={"link"}>
+            <Link href={`/${name}`}>{decodeCollectionName(name)}</Link>
+          </Button>
+        </div>
       ))}
     </div>
   );

@@ -2,14 +2,15 @@ import { HouseType } from "@/types/house";
 import House from "./House";
 import { getList } from "../actions";
 import AddHouse from "./AddHouse";
+import { decodeCollectionName } from "../utils/convertCollectionName";
 
 const HouseList = async ({ name }: { name: string }) => {
-  const response = await getList(name);
-  if (!response || !response.ok) {
+  const response = await getList(decodeCollectionName(name));
+  if (!response || !("data" in response)) {
     console.error("Failed to fetch houses");
     throw new Error("Couldn't fetch houses");
   }
-  const houses: HouseType[] = await response.json();
+  const houses = response.data as unknown as HouseType[];
 
   return (
     <div className="container mx-auto p-4">

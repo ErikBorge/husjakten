@@ -3,27 +3,45 @@
 import { useState } from "react";
 import { createList } from "../actions";
 import { encodeCollectionName } from "../utils/convertCollectionName";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 
 const NewList = () => {
   const [listName, setListName] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const create = async () => {
     if (listName !== "") {
+      setLoading(true);
       console.log("creating list: ", listName);
-      const encodedListName = encodeCollectionName(listName);
-      const response = await createList(encodedListName);
-      if (!response || !response.ok) {
+      try {
+        const encodedListName = encodeCollectionName(listName);
+        await createList(encodedListName);
+      } catch (error) {
+        setLoading(false);
+        console.error(error);
         throw new Error("Couldn't create list");
       }
-      const res = await response.json();
-      console.log({ res });
+      setLoading(false);
     }
   };
   return (
-    <div>
-      <input type="text" onChange={(e) => setListName(e.target.value)}></input>
-      <button onClick={create}>Create list </button>
-    </div>
+    <>
+      <h2>Lag ny liste</h2>
+      <div className="flex">
+        <Input
+          type="text"
+          placeholder="Min liste 123"
+          onChange={(e) => setListName(e.target.value)}
+          className="mr-2 max-w-[250px]"
+        />
+        <Button onClick={create} disabled={loading}>
+          {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          {!loading ? "Lag liste" : "Lager liste..."}
+        </Button>
+      </div>
+    </>
   );
 };
 

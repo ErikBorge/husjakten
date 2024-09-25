@@ -23,10 +23,10 @@ export async function createList(name: string) {
     const client = await clientPromise;
     const database = client.db(process.env.MONGODB_DATABASE); // Replace with your database name
     await database.createCollection(name);
-    return NextResponse.json(
-      { message: `Collection "${name}" created successfully.` },
-      { status: 200 }
-    );
+    return {
+      message: `Collection "${name}" created successfully.`,
+      status: 200,
+    };
   } catch (error: unknown) {
     returnError(error);
   }
@@ -71,7 +71,7 @@ export async function getList(collectionName: string) {
       })
       .filter((i) => i !== null);
 
-    return NextResponse.json(matchedData);
+    return { data: matchedData.map(({ _id, ...rest }) => rest) };
   } catch (error: unknown) {
     returnError(error);
   }
