@@ -70,7 +70,7 @@ export async function getList(collectionName: string) {
         return match === null ? null : { ...match };
       })
       .filter((i) => i !== null);
-
+    // eslint-disable-next-line
     return { data: matchedData.map(({ _id, ...rest }) => rest) };
   } catch (error: unknown) {
     returnError(error);
