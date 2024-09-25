@@ -124,6 +124,16 @@ export async function addHouse(finnkode: string, collection: string) {
   }
 }
 
+export async function updateAllHouses() {
+  const url = process.env.BE_URL + "/update-all";
+  try {
+    await fetch(url);
+    return { message: "yay" };
+  } catch (error: unknown) {
+    return { status: 500, error };
+  }
+}
+
 const returnError = (error: unknown) => {
   if (error instanceof Error) {
     return NextResponse.json(
