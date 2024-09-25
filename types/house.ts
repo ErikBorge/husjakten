@@ -10,8 +10,9 @@ export type HouseType = {
   changed: string;
   status: "active" | "inactive" | "sold";
   history: {
-    price: Array<{ [key in DateKey]: number }>;
-    status: Array<{ [key in DateKey]: string }>;
-  };
+    date: DateKey;
+    price: number;
+    status: "active" | "inactive" | "sold";
+  }[];
   added: DateKey;
 };
