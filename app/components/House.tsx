@@ -1,15 +1,8 @@
 "use client";
-import {
-  Area,
-  AreaChart,
-  ResponsiveContainer,
-  Tooltip,
-  TooltipProps,
-  XAxis,
-  YAxis,
-} from "recharts";
+
 import type { HouseType } from "../../types/house";
 import { removeHouse } from "../actions";
+import HouseGraph from "./HouseGraph";
 import Dropdown from "./ui/Dropdown";
 import Link from "next/link";
 
@@ -67,89 +60,8 @@ const House = ({
             <p className="text-sm font-light text-gray-600 mt-1">
               Endret: {house.changed}
             </p>
-
-            <p>{JSON.stringify(house.history)}</p>
           </div>
-          {house.history.length > 1 && (
-            <div className="flex-1">
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart
-                  data={house.history}
-                  width={100}
-                  height={100}
-                  margin={{ top: 0, right: 20, left: 20, bottom: 0 }}
-                >
-                  <Area
-                    dataKey="price"
-                    type="stepAfter"
-                    stroke="#172A3A"
-                    fill="rgba(102, 199, 244, 0.5)"
-                  >
-                    {/* <LabelList
-                    dataKey="price"
-                    position="top"
-                    formatter={(value) => {
-                      let newValue = (value / 1000000).toFixed(3);
-                      if (newValue.endsWith("00")) {
-                        newValue = newValue.slice(0, -2);
-                      }
-                      return newValue.replace(".", ",");
-                    }}
-                  /> */}
-                  </Area>
-                  <Tooltip
-                    allowEscapeViewBox={{ x: true, y: true }}
-                    offset={0}
-                    content={CustomTooltip}
-                  />
-                  <XAxis
-                    dataKey="date"
-                    // tickFormatter={(date) => {
-                    //   const [year, month, day] = date.split("-");
-                    //   return `${day.startsWith("0") ? day[1] : day}/${
-                    //     month.startsWith("0") ? month[1] : month
-                    //   }`;
-                    // }}
-                    hide={true}
-                    tick={false}
-                  />
-                  <YAxis
-                    domain={["dataMin - 1000000", "dataMax + 1000000"]}
-                    hide={true}
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-              {/* <XAxis
-                    dataKey="date"
-                    tickFormatter={(date) => {
-                      const [year, month, day] = date.split("-");
-                      return `${day.startsWith("0") ? day[1] : day}/${
-                        month.startsWith("0") ? month[1] : month
-                      }`;
-                    }}
-                    tickLine={false}
-                    axisLine={false}
-                  />
-                  <YAxis
-                    domain={["dataMin - 1000000", "dataMax + 1000000"]}
-                    hide={true}
-                  />
-                  <Bar dataKey="price" fill="#87CEFA" barSize={20}>
-                    <LabelList
-                      dataKey="price"
-                      position="top"
-                      formatter={(value) => {
-                        let newValue = (value / 1000000).toFixed(3);
-                        if (newValue.endsWith("00")) {
-                          newValue = newValue.slice(0, -2);
-                        }
-                        return newValue.replace(".", ",");
-                      }}
-                    />
-                  </Bar>
-                </BarChart> */}
-            </div>
-          )}
+          {house.history.length > 1 && <HouseGraph history={house.history} />}
         </div>
       </div>
       {collection !== process.env.NEXT_PUBLIC_CAH && (
@@ -170,31 +82,3 @@ const House = ({
 };
 
 export default House;
-
-const CustomTooltip = ({
-  active,
-  payload,
-  label,
-}: TooltipProps<number, string>) => {
-  console.log({ active, payload, label });
-
-  if (active && payload && payload.length) {
-    return (
-      <div className="px-4 py-2 bg-white border border-gray-200 rounded-md">
-        <p className="text-md font-medium">
-          {payload[0]?.value?.toLocaleString("no")} ,-
-        </p>
-        <p className="text-xs text-gray-500">
-          {new Date(label).toLocaleDateString("no", {
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-          })}
-        </p>
-        <p className="text-xs text-gray-500">{payload[0]?.payload.status}</p>
-      </div>
-    );
-  }
-
-  return null;
-};
