@@ -1,6 +1,6 @@
 import { CollectionInfo } from "mongodb";
 import { getLists } from "../actions";
-import { decodeCollectionName } from "../utils/convertCollectionName";
+import { decodeCollectionName } from "../../lib/utils";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 

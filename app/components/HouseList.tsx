@@ -2,7 +2,7 @@ import { HouseType } from "@/types/house";
 import House from "./House";
 import { getList } from "../actions";
 import AddHouse from "./AddHouse";
-import { decodeCollectionName } from "../utils/convertCollectionName";
+import { decodeCollectionName } from "../../lib/utils";
 
 const HouseList = async ({ name }: { name: string }) => {
   const response = await getList(decodeCollectionName(name));

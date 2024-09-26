@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { createList } from "../actions";
-import { encodeCollectionName } from "../utils/convertCollectionName";
+import { encodeCollectionName } from "../../lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";

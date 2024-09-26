@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { decodeCollectionName } from "../utils/convertCollectionName";
+import { decodeCollectionName } from "../../lib/utils";
 import Head from "next/head";
 import HouseList from "../components/HouseList";
 
