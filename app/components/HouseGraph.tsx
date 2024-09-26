@@ -40,13 +40,13 @@ const HouseGraph = ({ history }: { history: HouseType["history"] }) => {
   });
 
   return (
-    <div className="flex-1">
+    <div className="flex-grow">
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           data={extendedHistory}
           width={100}
           height={100}
-          margin={{ top: 0, right: 20, left: 20, bottom: 0 }}
+          margin={{ top: 0, right: 10, left: 10, bottom: 0 }}
         >
           <Area
             dataKey="phantomPrice"
@@ -54,7 +54,6 @@ const HouseGraph = ({ history }: { history: HouseType["history"] }) => {
             stroke="#172A3A"
             strokeDasharray="3 3"
             fill="rgba(102, 199, 244, 1)"
-            // fillOpacity="1"
             strokeWidth="1"
             strokeOpacity="0.5"
           />
@@ -63,7 +62,6 @@ const HouseGraph = ({ history }: { history: HouseType["history"] }) => {
             type="step"
             stroke="#172A3A"
             fill="rgba(102, 199, 244, 1)"
-            fillOpacity="1"
             strokeWidth="2"
           />
 
