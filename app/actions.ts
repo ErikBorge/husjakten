@@ -115,8 +115,8 @@ export async function addHouse(finnkode: string, collection: string) {
     const response = await fetch(
       `${url}?finnkode=${finnkode}&collection=${collection}`
     );
-    if (response && response.status === 200) {
-      return { status: 200 };
+    if (response) {
+      return { status: response.status };
     }
     return { status: 500, error: "Couldn't add house" };
   } catch (error: unknown) {

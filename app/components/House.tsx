@@ -26,16 +26,16 @@ const House = ({
 
   return (
     <div className="border rounded-lg p-3 mb-2 shadow-md">
-      <div className="flex">
+      <div className="md:flex">
         <img
           src={house.img}
           alt={house.title}
           className="w-64 h-64 object-cover rounded-lg mr-3"
         />
-        <div className="flex-grow flex flex-col justify-between">
+        <div className="mt-2 mb:mt-0 flex-grow flex flex-col justify-between">
           <div className="flex justify-between">
             <div>
-              <p className="text-sm font-light text-gray-600 mb-1">
+              <p className="text-xs md:text-sm font-light text-gray-600 md:mb-1">
                 {house?.status !== "active" && (
                   <span
                     className={`${
@@ -51,18 +51,18 @@ const House = ({
                 )}
                 {house.address}
               </p>
-              <h2 className="text-md font-light text-black break-words my-2">
+              <h2 className="text-sm md:text-md font-light text-black break-words mb-1 mb:mt-2 mb:mb-2 line-clamp-2">
                 {house.title}
               </h2>
               <p
-                className={`text-md text-black`}
+                className="text-sm md:text-md text-black"
                 style={{ fontFamily: "var(--font-finn-medium)" }}
               >
                 {house.size} m² •{" "}
                 {house.price.toLocaleString().replaceAll(",", " ")}
                 ,-
               </p>
-              <p className="text-xs font-light text-gray-600 mt-1">
+              <p className="hidden md:block text-xs font-light text-gray-600 mt-1">
                 <span>
                   Lagt til:{" "}
                   {new Date(house.added).toLocaleDateString("no", {
