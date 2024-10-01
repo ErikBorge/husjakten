@@ -5,8 +5,8 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const SignIn = () => {
   return (
-    <Card className="mx-auto my-auto max-w-sm p-4">
-      <CardContent>
+    <Card className="w-max min-w-80 max-w-full p-4 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+      <CardContent className="p-3">
         <form
           action={async (formData) => {
             "use server";
@@ -32,7 +32,7 @@ const SignIn = () => {
             // }
           }}
         >
-          <div className="my-4">
+          <div className="mb-4">
             <Input
               name="username"
               id="username"
