@@ -1,5 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import Header from "./components/Header";
 
 const FinnTypeLight = localFont({
   src: "./fonts/FINNTypeStrippet-Light.woff2",
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body
         className={`${FinnTypeLight.variable} ${FinnTypeMedium.variable} bg-gray-100 min-h-screen`}
       >
+        <Header />
         <main className="max-w-[1000px] mx-auto p-4">{children}</main>
       </body>
     </html>
