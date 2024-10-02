@@ -14,7 +14,6 @@ const NewList = () => {
   const create = async () => {
     if (listName !== "") {
       setLoading(true);
-      console.log("creating list: ", listName);
       try {
         const encodedListName = encodeCollectionName(listName);
         await createList(encodedListName);

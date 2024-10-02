@@ -18,7 +18,7 @@ export const metadata = {
   description: "Følg med på annonserte hus og hvordan priser endres.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -28,8 +28,8 @@ export default function RootLayout({
       <body
         className={`${FinnTypeLight.variable} ${FinnTypeMedium.variable} bg-gray-100 min-h-screen`}
       >
-        <Header />
         <main className="max-w-[1000px] mx-auto p-4 min-h-screen">
+          <Header />
           {children}
         </main>
       </body>

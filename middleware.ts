@@ -1,19 +1,22 @@
-// export { auth as middleware } from "@/auth";
+import { withAuth } from "next-auth/middleware";
 
-import { auth } from "@/auth";
-import { NextResponse } from "next/server";
+// export default withAuth((req) => {
+//   console.log("middleware");
 
-export default auth((req) => {
-  console.log("middleware");
+//   if (!req.nextauth && req.nextUrl.pathname !== "/login") {
+//     const newUrl = new URL("/login", req.nextUrl.origin);
+//     return Response.redirect(newUrl);
+//   } else if (req.nextauth && req.nextUrl.pathname === "/login") {
+//     const newUrl = new URL("/", req.nextUrl.origin);
+//     return Response.redirect(newUrl);
+//   }
+//   return NextResponse.next();
+// });
 
-  if (!req.auth && req.nextUrl.pathname !== "/login") {
-    const newUrl = new URL("/login", req.nextUrl.origin);
-    return Response.redirect(newUrl);
-  } else if (req.auth && req.nextUrl.pathname === "/login") {
-    const newUrl = new URL("/", req.nextUrl.origin);
-    return Response.redirect(newUrl);
-  }
-  return NextResponse.next();
+export default withAuth({
+  pages: {
+    signIn: "/login",
+  },
 });
 
 export const config = {

@@ -1,18 +1,7 @@
-import NextAuth from "next-auth";
-import { User as NextAuthUser } from "next-auth"; // Import the correct User type
-
+import { User as NextAuthUser, AuthOptions, getServerSession } from "next-auth"; // Import the correct User type
 import Credentials from "next-auth/providers/credentials";
-// import { saltAndHashPassword } from "./utils/password";
-// import { ZodError } from "zod";
-// import { signInSchema } from "./lib/zod";
-// import { NextResponse } from "next/server";
 
-// type User = {
-//   username: string;
-//   password: string | undefined;
-// };
-
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const authOptions: AuthOptions = {
   providers: [
     Credentials({
       // You can specify which fields should be submitted, by adding keys to the `credentials` object.
@@ -24,25 +13,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       authorize: async (credentials) => {
         try {
           let user: NextAuthUser | null = null;
-          // const { username, password } = await signInSchema.parseAsync(
-          //   credentials
-          // );
+          const { username, password } = credentials as {
+            username: string;
+            password: string;
+          };
+          if (!username || !password) return null;
 
-          // logic to salt and hash password
-          // const pwHash = saltAndHashPassword(credentials.password);
-
-          // logic to verify if the user exists
-          // user = await getUserFromDb(credentials.email, pwHash);
+          if (!process.env.AUTH_USERNAME || !process.env.AUTH_PASSWORD) {
+            return null;
+          }
           user =
-            credentials.username === "abc" && credentials.password === "123"
-              ? { name: credentials.username }
+            username === process.env.AUTH_USERNAME &&
+            password === process.env.AUTH_PASSWORD
+              ? { name: username, id: "123" }
               : null;
 
-          if (!user) {
-            // No user found, so this is their first attempt to login
-            // meaning this is also the place you could do registration
-            throw new Error("Invalid credentials.");
-          }
+          if (!user) return null;
 
           return user;
         } catch {
@@ -66,4 +52,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   //     return !!auth;
   //   },
   // },
-});
+};
+
+export const getSession = () => getServerSession(authOptions);

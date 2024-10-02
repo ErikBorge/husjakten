@@ -1,6 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  swcMinify: !(process.env.NODE_ENV === "development"),
-};
+const nextConfig = {};
 
 export default nextConfig;
