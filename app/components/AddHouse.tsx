@@ -4,8 +4,10 @@ import { addHouse } from "../actions";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 
 const AddHouse = ({ collection }: { collection: string }) => {
+  const router = useRouter();
   const [finnkode, setFinnkode] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -18,15 +20,19 @@ const AddHouse = ({ collection }: { collection: string }) => {
       setError("");
       try {
         const response = await addHouse(finnkode, collection);
-        if (response && response.status === 208) {
+        if (!response) throw new Error("Couldn't add house");
+        const { status } = response;
+        if (status === 200) router.refresh();
+        else if (status === 208) {
           setError("Huset finnes allerede i listen.");
-        } else if (!response || response.status === 500) {
-          console.error("Failed to add house", response.error);
-          throw new Error("Couldn't add house");
-        } else window.location.reload();
+        } else if (response.status === 401) {
+          throw new Error("Unauthorized");
+        } else throw new Error("Unknown error");
       } catch (error) {
         setError("Noe gikk galt. Vennligst prøv igjen.");
         console.error("Error:", error);
+      } finally {
+        setLoading(false);
       }
     }
     setLoading(false);
@@ -48,11 +54,7 @@ const AddHouse = ({ collection }: { collection: string }) => {
           {!loading ? "Lessago!" : "Jobber..."}
         </Button>
       </div>
-      {error && (
-        <p className="text-sm" style={{ color: "red" }}>
-          {error}
-        </p>
-      )}{" "}
+      {error && <p className="text-sm text-red-600 mt-2">{error}</p>}{" "}
     </div>
   );
 };

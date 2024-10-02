@@ -111,9 +111,22 @@ export async function removeHouse(finnkode: string, collectionName: string) {
 
 export async function addHouse(finnkode: string, collection: string) {
   const url = process.env.BE_URL + "/add-house";
+
   try {
+    const auth =
+      "Basic " +
+      Buffer.from(
+        `${process.env.FLASK_USERNAME}:${process.env.FLASK_PASSWORD}`
+      ).toString("base64");
+
     const response = await fetch(
-      `${url}?finnkode=${finnkode}&collection=${collection}`
+      `${url}?finnkode=${finnkode}&collection=${collection}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: auth,
+        },
+      }
     );
     if (response) {
       return { status: response.status };
@@ -126,8 +139,18 @@ export async function addHouse(finnkode: string, collection: string) {
 
 export async function updateAllHouses() {
   const url = process.env.BE_URL + "/update-all";
+  const auth =
+    "Basic " +
+    Buffer.from(
+      `${process.env.FLASK_USERNAME}:${process.env.FLASK_PASSWORD}`
+    ).toString("base64");
   try {
-    await fetch(url);
+    await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: auth,
+      },
+    });
     return { message: "yay" };
   } catch (error: unknown) {
     return { status: 500, error };
