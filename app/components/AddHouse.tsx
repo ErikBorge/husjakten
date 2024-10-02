@@ -39,8 +39,8 @@ const AddHouse = ({ collection }: { collection: string }) => {
   };
 
   return (
-    <div>
-      <h2>Legg til hus</h2>
+    <div className="py-4">
+      <h2 className="text-xl my-2">Legg til hus</h2>
       <div className="flex">
         <Input
           type="text"

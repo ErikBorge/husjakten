@@ -40,88 +40,62 @@ const HouseGraph = ({ history }: { history: HouseType["history"] }) => {
   });
 
   return (
-    <div className="flex-grow">
-      <ResponsiveContainer width="100%" height="100%">
-        <AreaChart
-          data={extendedHistory}
-          width={100}
-          height={100}
-          margin={{ top: 0, right: 10, left: 10, bottom: 0 }}
-        >
-          <Area
-            dataKey="phantomPrice"
-            type="step"
-            stroke="#172A3A"
-            strokeDasharray="3 3"
-            fill="rgba(102, 199, 244, 1)"
-            strokeWidth="1"
-            strokeOpacity="0.5"
-          />
-          <Area
-            dataKey="price"
-            type="step"
-            stroke="#172A3A"
-            fill="rgba(102, 199, 244, 1)"
-            strokeWidth="2"
-          />
+    <ResponsiveContainer width="100%" height="100%">
+      <AreaChart
+        data={extendedHistory}
+        width={100}
+        height={100}
+        margin={{ top: 0, right: 10, left: 10, bottom: 0 }}
+      >
+        <Area
+          dataKey="phantomPrice"
+          type="step"
+          stroke="#172A3A"
+          strokeDasharray="3 3"
+          fill="rgba(102, 199, 244, 1)"
+          strokeWidth="1"
+          strokeOpacity="0.5"
+        />
+        <Area
+          dataKey="price"
+          type="step"
+          stroke="#172A3A"
+          fill="rgba(102, 199, 244, 1)"
+          strokeWidth="2"
+        />
 
-          <Tooltip
-            allowEscapeViewBox={{ x: true, y: true }}
-            offset={0}
-            content={CustomTooltip}
-          />
-          <XAxis
-            dataKey="date"
-            // tickFormatter={(date) => {
-            //   const [year, month, day] = date.split("-");
-            //   return `${day.startsWith("0") ? day[1] : day}/${
-            //     month.startsWith("0") ? month[1] : month
-            //   }`;
-            // }}
-            hide={true}
-            tick={false}
-          />
-          <YAxis
-            domain={["dataMin - 1000000", "dataMax + 1000000"]}
-            hide={true}
-          />
-        </AreaChart>
-      </ResponsiveContainer>
-      {/* <XAxis
-                    dataKey="date"
-                    tickFormatter={(date) => {
-                      const [year, month, day] = date.split("-");
-                      return `${day.startsWith("0") ? day[1] : day}/${
-                        month.startsWith("0") ? month[1] : month
-                      }`;
-                    }}
-                    tickLine={false}
-                    axisLine={false}
-                  />
-                  <YAxis
-                    domain={["dataMin - 1000000", "dataMax + 1000000"]}
-                    hide={true}
-                  />
-                  <Bar dataKey="price" fill="#87CEFA" barSize={20}>
-                    <LabelList
-                      dataKey="price"
-                      position="top"
-                      formatter={(value) => {
-                        let newValue = (value / 1000000).toFixed(3);
-                        if (newValue.endsWith("00")) {
-                          newValue = newValue.slice(0, -2);
-                        }
-                        return newValue.replace(".", ",");
-                      }}
-                    />
-                  </Bar>
-                </BarChart> */}
-    </div>
+        <Tooltip
+          allowEscapeViewBox={{ x: true, y: true }}
+          offset={0}
+          content={CustomTooltip}
+        />
+        <XAxis
+          dataKey="date"
+          // tickFormatter={(date) => {
+          //   const [year, month, day] = date.split("-");
+          //   return `${day.startsWith("0") ? day[1] : day}/${
+          //     month.startsWith("0") ? month[1] : month
+          //   }`;
+          // }}
+          hide={true}
+          tick={false}
+        />
+        <YAxis
+          domain={["dataMin - 1000000", "dataMax + 1000000"]}
+          hide={true}
+        />
+      </AreaChart>
+    </ResponsiveContainer>
   );
 };
 
 export default HouseGraph;
 
+const statusMap = {
+  active: "Aktiv",
+  inactive: "Deaktivert",
+  sold: "Solgt",
+};
 const CustomTooltip = ({
   active,
   payload,
@@ -141,7 +115,9 @@ const CustomTooltip = ({
             year: "numeric",
           })}
         </p>
-        <p className="text-xs text-gray-500">{payload[0]?.payload.status}</p>
+        <p className="text-xs text-gray-500">
+          {statusMap[payload[0]?.payload.status as keyof typeof statusMap]}
+        </p>
       </div>
     );
   }

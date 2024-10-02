@@ -27,7 +27,7 @@ const NewList = () => {
   };
   return (
     <>
-      <h2>Lag ny liste</h2>
+      <h2 className="my-2 text-2xl font-medium">Lag ny liste</h2>
       <div className="flex">
         <Input
           type="text"

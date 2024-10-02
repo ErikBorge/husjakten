@@ -5,7 +5,8 @@ import { removeHouse } from "../actions";
 import HouseGraph from "./HouseGraph";
 import Dropdown from "./ui/Dropdown";
 import Link from "next/link";
-import { OpenInNewWindowIcon } from "@radix-ui/react-icons";
+import { OpenInNewWindowIcon, Cross2Icon } from "@radix-ui/react-icons";
+import Image from "next/image";
 
 const statusMap = {
   active: "Aktiv",
@@ -27,12 +28,21 @@ const House = ({
   return (
     <div className="border rounded-lg p-3 mb-2 shadow-md">
       <div className="md:flex">
-        <img
-          src={house.img}
-          alt={house.title}
-          className="w-64 h-64 object-cover rounded-lg mr-3"
-        />
-        <div className="mt-2 mb:mt-0 flex-grow flex flex-col justify-between">
+        <Link
+          href={`https://finn.no/${house.finnkode}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block w-full md:w-1/3 md:mr-3 md:aspect-square"
+        >
+          <Image
+            src={house.img}
+            alt={house.title}
+            className="w-full h-48 md:w-full md:h-full object-cover rounded-lg"
+            width={300}
+            height={300}
+          />
+        </Link>
+        <div className="mt-2 mb:mt-0 flex flex-col justify-between flex-1">
           <div className="flex justify-between">
             <div>
               <p className="text-xs md:text-sm font-light text-gray-600 md:mb-1">
@@ -82,6 +92,15 @@ const House = ({
               </p>
             </div>
             <div>
+              {collection !== process.env.NEXT_PUBLIC_CAH && (
+                <div className="-mt-2">
+                  <Dropdown
+                    items={[{ label: "Slett", onClick: handleDelete }]}
+                    label={<div className="text-sm tracking-tighter">•••</div>}
+                    openLabel={<Cross2Icon className="w-5 h-5" />}
+                  />
+                </div>
+              )}
               <Link
                 href={`https://finn.no/${house.finnkode}`}
                 target="_blank"
@@ -92,7 +111,17 @@ const House = ({
               </Link>
             </div>
           </div>
-          {house.history.length > 1 && <HouseGraph history={house.history} />}
+
+          {house.history.length > 1 ? (
+            <div className="h-32 md:h-auto flex flex-grow">
+              <HouseGraph history={house.history} />
+            </div>
+          ) : (
+            <p className="text-sm mt-2">
+              Ingen historikk å vise. sjekk senere.
+            </p>
+          )}
+
           {/* <p>
             Finnkode:{" "}
             <Link
@@ -105,9 +134,6 @@ const House = ({
           </p> */}
         </div>
       </div>
-      {collection !== process.env.NEXT_PUBLIC_CAH && (
-        <Dropdown items={[{ label: "Slett", onClick: handleDelete }]} />
-      )}
     </div>
   );
 };

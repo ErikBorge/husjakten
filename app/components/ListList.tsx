@@ -16,7 +16,7 @@ const ListList = async () => {
 
   return (
     <div>
-      <h2>Lister</h2>
+      <h2 className="my-4 text-2xl font-medium">Lister</h2>
       {lists.map(({ name }, i) => (
         <div key={"list" + i}>
           <Button asChild variant={"link"}>

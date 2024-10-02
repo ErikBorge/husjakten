@@ -20,7 +20,7 @@ const ListPage = async ({ params }: { params: { list: string } }) => {
         <title>{String(metadata.title || "Husjakten")}</title>
       </Head>
       <div>
-        <h1>{decodeCollectionName(list)}</h1>
+        <h1 className="text-2xl my-2">{decodeCollectionName(list)}</h1>
         <HouseList name={list} />
       </div>
     </>

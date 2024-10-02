@@ -13,7 +13,7 @@ const HouseList = async ({ name }: { name: string }) => {
   const houses = response.data as unknown as HouseType[];
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="py-4">
       {houses.length === 0 ? (
         <div>No houses found.</div>
       ) : (
